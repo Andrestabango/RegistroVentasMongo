@@ -21,7 +21,7 @@ import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 
 @PageTitle("Nuevo Cliente")
 @Route(value = "nuevo-cliente", layout = MainLayout.class)
-@RouteAlias(value = "", layout = MainLayout.class)
+
 @Uses(Icon.class)
 public class NuevoClienteView extends Composite<VerticalLayout> {
 

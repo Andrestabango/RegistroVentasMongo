@@ -9,9 +9,11 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteAlias;
 
 @PageTitle("Ventas")
 @Route(value = "ventas", layout = MainLayout.class)
+@RouteAlias(value = "", layout = MainLayout.class)
 @Uses(Icon.class)
 public class VentasView extends Composite<VerticalLayout> {
 
