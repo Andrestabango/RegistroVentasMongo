@@ -102,7 +102,6 @@ public class NuevaVentaView extends Composite<VerticalLayout> {
         formLayout2Col.add(dpFechaVentas);
         formLayout2Col.add(cBClientes);
         layoutColumn2.add(layoutColumn3);
-
         layoutColumn2.add(layoutRow);
         layoutRow.add(guardar);
         layoutRow.add(buttonSecondary);
@@ -127,12 +126,6 @@ public class NuevaVentaView extends Composite<VerticalLayout> {
                     });
                     botonEliminar.setIcon(new Icon(VaadinIcon.MINUS));
 
-                    /*Button botonVer = new Button();
-                    botonVer.addThemeVariants(ButtonVariant.LUMO_CONTRAST);
-                    botonVer.addClickListener(e -> {
-
-                    });
-                    botonVer.setIcon(new Icon(VaadinIcon.EYE));*/
 
                     HorizontalLayout buttons = new HorizontalLayout(botonAgregar,botonEliminar);
                     return buttons;

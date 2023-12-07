@@ -1,6 +1,8 @@
 package com.registro.ventas.models;
 
-public class Producto {
+import java.util.Scanner;
+
+public class Producto extends Venta {
     String nombre;
     double precio;
     int cantidad;
@@ -9,6 +11,24 @@ public class Producto {
         this.nombre = nombre;
         this.precio = precio;
         this.cantidad = cantidad;
+    }
+
+    @Override
+    public void ingresarDatos(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese nombre del producto:");
+        this.nombre = scanner.nextLine();
+        System.out.println("Ingrese precio del producto:");
+        this.precio = scanner.nextDouble();
+        System.out.println("Ingrese cantidad del producto:");
+        this.cantidad = scanner.nextInt();
+    }
+
+    @Override
+    public void imprimirDatos(){
+        System.out.println("Nombre: "+this.nombre);
+        System.out.println("Precio: "+this.precio);
+        System.out.println("Código: "+this.cantidad);
     }
 
     public String getNombre() {

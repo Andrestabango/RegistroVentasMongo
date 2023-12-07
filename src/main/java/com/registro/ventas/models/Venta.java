@@ -2,7 +2,7 @@ package com.registro.ventas.models;
 
 import java.util.ArrayList;
 
-public class Venta {
+public abstract class Venta {
     int codigoVenta;
     String fechaCompra;
     ArrayList<Producto>  productos = new ArrayList<>();
@@ -14,6 +14,12 @@ public class Venta {
         this.productos = productos;
         this.cliente = cliente;
     }
+
+
+    public abstract void ingresarDatos();
+
+
+    public abstract void imprimirDatos();
 
     public Venta() {
     }
@@ -49,4 +55,6 @@ public class Venta {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
+
 }
