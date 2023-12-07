@@ -13,8 +13,8 @@ public class Producto extends Venta {
         this.cantidad = cantidad;
     }
 
-    @Override
-    public void ingresarDatos(){
+
+    public void ingresarProducto(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ingrese nombre del producto:");
         this.nombre = scanner.nextLine();
@@ -24,8 +24,8 @@ public class Producto extends Venta {
         this.cantidad = scanner.nextInt();
     }
 
-    @Override
-    public void imprimirDatos(){
+
+    public void imprimirProducto(){
         System.out.println("Nombre: "+this.nombre);
         System.out.println("Precio: "+this.precio);
         System.out.println("Código: "+this.cantidad);

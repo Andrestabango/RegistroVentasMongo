@@ -13,8 +13,8 @@ public class Cliente extends Venta {
         this.correo = correo;
     }
 
-    @Override
-    public void ingresarDatos(){
+
+    public void ingresarClientes(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ingrese nombre del cliente:");
         this.nombre = scanner.nextLine();
@@ -24,8 +24,8 @@ public class Cliente extends Venta {
         this.correo = scanner.nextLine();
     }
 
-    @Override
-    public void imprimirDatos(){
+
+    public void imprimirClientes(){
         System.out.println("Nombre: "+this.nombre);
         System.out.println("Precio: "+this.cedula);
         System.out.println("Código: "+this.correo);
