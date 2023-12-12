@@ -1,5 +1,7 @@
 package com.registro.ventas.views.nuevoproducto;
 
+import com.registro.ventas.models.Producto;
+import com.registro.ventas.utils.Util;
 import com.registro.ventas.views.MainLayout;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
@@ -29,34 +31,71 @@ public class NuevoProductoView extends Composite<VerticalLayout> {
         HorizontalLayout layoutRow = new HorizontalLayout();
         Button buttonPrimary = new Button();
         Button buttonSecondary = new Button();
+
         getContent().setWidth("100%");
         getContent().getStyle().set("flex-grow", "1");
         getContent().setJustifyContentMode(JustifyContentMode.START);
         getContent().setAlignItems(Alignment.CENTER);
+
         layoutColumn2.setWidthFull();
         getContent().setFlexGrow(1.0, layoutColumn2);
         layoutColumn2.setWidth("100%");
         layoutColumn2.setMaxWidth("800px");
         layoutColumn2.setHeight("min-content");
+
         h3.setText("Información de Productos");
         h3.setWidth("min-content");
+
         textField.setLabel("Nombre del producto:");
         textField.setWidth("100%");
+
         formLayout2Col.setWidth("100%");
+
         textField2.setLabel("Precio:");
         textField2.setWidth("min-content");
+
         textField3.setLabel("Cantidad:");
         textField3.setWidth("min-content");
+
         layoutRow.setWidthFull();
         layoutColumn2.setFlexGrow(1.0, layoutRow);
+
         layoutRow.addClassName(Gap.MEDIUM);
         layoutRow.setWidth("100%");
         layoutRow.setHeight("min-content");
-        buttonPrimary.setText("Save");
+
+        buttonPrimary.setText("Guardar");
         buttonPrimary.setWidth("min-content");
         buttonPrimary.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        buttonSecondary.setText("Cancel");
+
+        Producto producto1 = new Producto();
+
+        buttonPrimary.addClickListener(event -> {
+            // Obtener los valores de los campos y guardar en la lista de productos
+            String nombre = textField.getValue();
+            float precio = Float.parseFloat(textField2.getValue());
+            Integer cantidad = Integer.valueOf(textField3.getValue());
+
+            // Validar que los campos no estén vacíos antes de guardar
+            if (!nombre.isEmpty() && !Float.isNaN(precio)) {
+                // Convertir el precio y la cantidad a tipos adecuados
+
+                producto1.setNombre(nombre);
+                producto1.setPrecio(precio);
+                producto1.setCantidad(cantidad);
+
+                Util.listaProducto.add(producto1);
+
+                // Navegar a la vista de productos después de guardar
+                getUI().ifPresent(ui -> ui.navigate("productos"));
+            } else {
+                System.out.println("Ingrese datos correctos");
+            }
+        });
+
+        buttonSecondary.setText("Cancelar");
         buttonSecondary.setWidth("min-content");
+
         getContent().add(layoutColumn2);
         layoutColumn2.add(h3);
         layoutColumn2.add(textField);

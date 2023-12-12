@@ -1,5 +1,7 @@
 package com.registro.ventas.views.nuevocliente;
 
+import com.registro.ventas.models.Cliente;
+import com.registro.ventas.utils.Util;
 import com.registro.ventas.views.MainLayout;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
@@ -21,7 +23,6 @@ import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 
 @PageTitle("Nuevo Cliente")
 @Route(value = "nuevo-cliente", layout = MainLayout.class)
-
 @Uses(Icon.class)
 public class NuevoClienteView extends Composite<VerticalLayout> {
 
@@ -33,39 +34,71 @@ public class NuevoClienteView extends Composite<VerticalLayout> {
         TextField textField2 = new TextField();
         EmailField emailField = new EmailField();
         HorizontalLayout layoutRow = new HorizontalLayout();
-        Button buttonPrimary = new Button();
-        Button buttonSecondary = new Button();
+        Button guardar = new Button();
+        Button botonSecundario = new Button();
+
         getContent().setWidth("100%");
         getContent().getStyle().set("flex-grow", "1");
         getContent().setJustifyContentMode(JustifyContentMode.START);
         getContent().setAlignItems(Alignment.CENTER);
+
         layoutColumn2.setWidth("800px");
         layoutColumn2.setMaxWidth("800px");
         layoutColumn2.setHeight("min-content");
+
         h3.setText("Información del Cliente");
         h3.setWidth("100%");
+
         formLayout2Col.setWidth("100%");
+
         textField.setLabel("Nombre:");
         textField2.setLabel("Cédula:");
         textField2.setWidth("372px");
-        emailField.setLabel("Email:");
+        emailField.setLabel("Correo electrónico:");
         emailField.setWidth("372px");
+
         layoutRow.addClassName(Gap.MEDIUM);
         layoutRow.setWidth("100%");
         layoutRow.getStyle().set("flex-grow", "1");
-        buttonPrimary.setText("Save");
-        buttonPrimary.setWidth("min-content");
-        buttonPrimary.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        buttonSecondary.setText("Cancel");
-        buttonSecondary.setWidth("min-content");
+
+        guardar.setText("Guardar");
+        guardar.setWidth("min-content");
+        guardar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+
+        Cliente cliente1 = new Cliente();
+
+        guardar.addClickListener(event -> {
+            // Obtener los valores de los campos y guardar en la lista de clientes
+            String nombre = textField.getValue();
+            String cedula = textField2.getValue();
+            String correo = emailField.getValue();
+
+            // Validar que los campos no estén vacíos antes de guardar
+            if (!nombre.isEmpty() && !cedula.isEmpty() && !correo.isEmpty()) {
+                cliente1.setNombre(nombre);
+                cliente1.setCedula(cedula);
+                cliente1.setCorreo(correo);
+
+                Util.listaClientes.add(cliente1);
+
+                // Navegar a la vista de clientes después de guardar
+                getUI().ifPresent(ui -> ui.navigate("clientes"));
+            } else {
+                System.out.println("Ingrese datos correctos");
+            }
+        });
+
+        botonSecundario.setText("Cancelar");
+        botonSecundario.setWidth("min-content");
+
         getContent().add(layoutColumn2);
         layoutColumn2.add(h3);
         layoutColumn2.add(formLayout2Col);
         formLayout2Col.add(textField);
-        layoutColumn2.add(textField2);
-        layoutColumn2.add(emailField);
+        formLayout2Col.add(textField2);
+        formLayout2Col.add(emailField);
         layoutColumn2.add(layoutRow);
-        layoutRow.add(buttonPrimary);
-        layoutRow.add(buttonSecondary);
+        layoutRow.add(guardar);
+        layoutRow.add(botonSecundario);
     }
 }

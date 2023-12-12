@@ -10,19 +10,24 @@ import java.util.List;
 public class Util {
     public static List<Cliente> listaClientes = new ArrayList<>(
             List.of(
-               new Cliente ("Andres","1753468311","andrestab@gmail.com"),
-               new Cliente ("Luis","1753468381","luis@gmail.com")
+
 
             )
     );
 
     public static List<Producto> listaProducto = new ArrayList<>(
             List.of(
-                    new Producto ("Embrague",120,4),
-                    new Producto ("Piston",140,2)
+
 
             )
     );
 
-    public static List<Venta> listaVenta = new ArrayList<>();
+    public static List<Venta> listaVenta = new ArrayList<>(
+            List.of(
+
+
+            )
+
+
+    );
 }

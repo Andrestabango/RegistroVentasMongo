@@ -13,6 +13,10 @@ public class Cliente extends Venta {
         this.correo = correo;
     }
 
+    public Cliente() {
+
+    }
+
 
     public void ingresarClientes(){
         Scanner scanner = new Scanner(System.in);
