@@ -43,19 +43,19 @@ public class Producto extends Venta {
         this.nombre = nombre;
     }
 
-    public double getPrecio() {
+    public float getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Float precio) {
-        this.precio = this.precio;
+    public void setPrecio(float precio) {
+        this.precio = precio;
     }
 
     public int getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(Integer cantidad) {
-        this.cantidad = this.cantidad;
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 }

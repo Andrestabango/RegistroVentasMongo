@@ -42,31 +42,17 @@ public class ProductosView extends Composite<VerticalLayout> {
                     Button botonBorrar = new Button();
                     botonBorrar.addThemeVariants(ButtonVariant.LUMO_ERROR);
                     botonBorrar.addClickListener(e -> {
-                        Util.listaClientes.remove(producto);
+                        Util.listaProducto.remove(producto);
                         grid.getDataProvider().refreshAll();
                     });
                     botonBorrar.setIcon(new Icon(VaadinIcon.TRASH));
-
-                    /*Button botonEditar = new Button();
-                    botonEditar.addThemeVariants(ButtonVariant.LUMO_SUCCESS);
-                    botonEditar.addClickListener(e -> {
-
-                    });
-                    botonEditar.setIcon(new Icon(VaadinIcon.EDIT));*/
-
-                    /*Button botonVer = new Button();
-                    botonVer.addThemeVariants(ButtonVariant.LUMO_CONTRAST);
-                    botonVer.addClickListener(e -> {
-
-                    });
-                    botonVer.setIcon(new Icon(VaadinIcon.EYE));*/
 
                     HorizontalLayout buttons = new HorizontalLayout(botonBorrar);
                     return buttons;
                 })).setHeader("Manage").setAutoWidth(true);
 
-        List<Producto> productos = Util.listaProducto;
-        grid.setItems(productos);
+        List<Producto> producto = Util.listaProducto;
+        grid.setItems(producto);
         grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
         getContent().add(buttonPrimary,grid);
     }

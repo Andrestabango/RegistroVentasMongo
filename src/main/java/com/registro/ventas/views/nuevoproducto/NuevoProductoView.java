@@ -29,7 +29,7 @@ public class NuevoProductoView extends Composite<VerticalLayout> {
         TextField textField2 = new TextField();
         TextField textField3 = new TextField();
         HorizontalLayout layoutRow = new HorizontalLayout();
-        Button buttonPrimary = new Button();
+        Button guardar = new Button();
         Button buttonSecondary = new Button();
 
         getContent().setWidth("100%");
@@ -64,35 +64,29 @@ public class NuevoProductoView extends Composite<VerticalLayout> {
         layoutRow.setWidth("100%");
         layoutRow.setHeight("min-content");
 
-        buttonPrimary.setText("Guardar");
-        buttonPrimary.setWidth("min-content");
-        buttonPrimary.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        guardar.setText("Guardar");
+        guardar.setWidth("min-content");
+        guardar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-        Producto producto1 = new Producto();
-
-        buttonPrimary.addClickListener(event -> {
+        guardar.addClickListener(event -> {
             // Obtener los valores de los campos y guardar en la lista de productos
             String nombre = textField.getValue();
             float precio = Float.parseFloat(textField2.getValue());
             Integer cantidad = Integer.valueOf(textField3.getValue());
 
+            // Crear una nueva instancia de Producto
+            Producto producto1 = new Producto();
+
             // Validar que los campos no estén vacíos antes de guardar
-            if (!nombre.isEmpty() && !Float.isNaN(precio)) {
-                // Convertir el precio y la cantidad a tipos adecuados
+            producto1.setNombre(nombre);
+            producto1.setPrecio(precio);
+            producto1.setCantidad(cantidad);
 
-                producto1.setNombre(nombre);
-                producto1.setPrecio(precio);
-                producto1.setCantidad(cantidad);
+            Util.listaProducto.add(producto1);
 
-                Util.listaProducto.add(producto1);
-
-                // Navegar a la vista de productos después de guardar
-                getUI().ifPresent(ui -> ui.navigate("productos"));
-            } else {
-                System.out.println("Ingrese datos correctos");
-            }
+            // Navegar a la vista de productos después de guardar
+            getUI().ifPresent(ui -> ui.navigate("productos"));
         });
-
         buttonSecondary.setText("Cancelar");
         buttonSecondary.setWidth("min-content");
 
@@ -103,7 +97,7 @@ public class NuevoProductoView extends Composite<VerticalLayout> {
         formLayout2Col.add(textField2);
         formLayout2Col.add(textField3);
         layoutColumn2.add(layoutRow);
-        layoutRow.add(buttonPrimary);
+        layoutRow.add(guardar);
         layoutRow.add(buttonSecondary);
     }
 }

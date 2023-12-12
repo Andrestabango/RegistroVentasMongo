@@ -47,20 +47,6 @@ public class ClientesView extends Composite<VerticalLayout> {
                     });
                     botonBorrar.setIcon(new Icon(VaadinIcon.TRASH));
 
-                    /*Button botonEditar = new Button();
-                    botonEditar.addThemeVariants(ButtonVariant.LUMO_SUCCESS);
-                    botonEditar.addClickListener(e -> {
-
-                    });
-                    botonEditar.setIcon(new Icon(VaadinIcon.EDIT));*/
-
-                    /*Button botonVer = new Button();
-                    botonVer.addThemeVariants(ButtonVariant.LUMO_CONTRAST);
-                    botonVer.addClickListener(e -> {
-
-                    });
-                    botonVer.setIcon(new Icon(VaadinIcon.EYE));*/
-
                     HorizontalLayout buttons = new HorizontalLayout(botonBorrar);
                     return buttons;
                 })).setHeader("Manage").setAutoWidth(true);
