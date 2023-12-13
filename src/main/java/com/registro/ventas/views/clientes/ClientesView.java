@@ -33,6 +33,11 @@ public class ClientesView extends Composite<VerticalLayout> {
         buttonPrimary.setText("Nuevo Cliente");
         buttonPrimary.setWidth("min-content");
         buttonPrimary.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        buttonPrimary.addClickListener(e -> {
+            buttonPrimary.getUI().ifPresent(ui ->
+                    ui.navigate("nuevo-cliente"));
+        });
+
         Grid<Cliente> grid = new Grid<>(Cliente.class, false);
         grid.addColumn(Cliente::getNombre).setHeader("Nombre").setAutoWidth(true);
         grid.addColumn(Cliente::getCedula).setHeader("Cedula").setAutoWidth(true);
