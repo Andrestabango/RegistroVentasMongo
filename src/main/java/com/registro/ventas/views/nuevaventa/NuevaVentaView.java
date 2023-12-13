@@ -76,19 +76,19 @@ public class NuevaVentaView extends Composite<VerticalLayout> {
         guardar.setWidth("min-content");
         guardar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
+        Venta venta2 = new Venta();
         guardar.addClickListener(e -> {
             int selTipo = Integer.parseInt(((SampleItem)cBClientes.getValue()).value());
             String tipo = ((SampleItem)cBClientes.getValue()).label();
             System.out.println(selTipo);
-          venta1.setCodigoVenta(Integer.parseInt(tfcodigo.getValue()));
-          venta1.setFechaCompra(dpFechaVentas.getValue().toString());
-          venta1.setCliente(Util.listaClientes.get(selTipo));
-              Util.listaVenta.add(venta1);
-
+          venta2.setCodigoVenta(Integer.parseInt(tfcodigo.getValue()));
+          venta2.setFechaCompra(dpFechaVentas.getValue().toString());
+          venta2.setCliente(Util.listaClientes.get(selTipo));
+              Util.listaVenta.add(venta2);
 
 
             guardar.getUI().ifPresent(ui ->
-                    ui.navigate("productos"));
+                    ui.navigate("ventas"));
         });
 
 

@@ -36,6 +36,7 @@ public class VentasView extends Composite<VerticalLayout> {
         buttonPrimary.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         Grid<Venta> grid = new Grid<>(Venta.class, false);
         grid.addColumn(Venta::getCodigoVenta).setHeader("Código de Venta").setAutoWidth(true);
+        grid.addColumn(Venta::getCliente).setHeader("Cliente").setAutoWidth(true);
         grid.addColumn(Venta::getFechaCompra).setHeader("Fecha de Venta").setAutoWidth(true);
 
         grid.addColumn(
