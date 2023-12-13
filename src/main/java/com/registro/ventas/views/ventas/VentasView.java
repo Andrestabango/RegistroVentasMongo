@@ -34,9 +34,15 @@ public class VentasView extends Composite<VerticalLayout> {
         buttonPrimary.setText("Nueva Venta");
         buttonPrimary.setWidth("min-content");
         buttonPrimary.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        buttonPrimary.addClickListener(e -> {
+            buttonPrimary.getUI().ifPresent(ui ->
+                    ui.navigate("nueva-venta"));
+        });
         Grid<Venta> grid = new Grid<>(Venta.class, false);
         grid.addColumn(Venta::getCodigoVenta).setHeader("Código de Venta").setAutoWidth(true);
-        grid.addColumn(Venta::getCliente).setHeader("Cliente").setAutoWidth(true);
+        grid.addColumn(Venta::getNombreCliente).setHeader("Cliente").setAutoWidth(true);
+        grid.addColumn(Venta::getProductos).setHeader("Productos").setAutoWidth(true);
+        grid.addColumn(Venta::getPrecioTotal).setHeader("Precio").setAutoWidth(true);
         grid.addColumn(Venta::getFechaCompra).setHeader("Fecha de Venta").setAutoWidth(true);
 
         grid.addColumn(

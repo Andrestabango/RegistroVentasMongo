@@ -1,12 +1,18 @@
 package com.registro.ventas.models;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Venta {
     int codigoVenta;
     String fechaCompra;
     ArrayList<Producto>  productos = new ArrayList<>();
     Cliente cliente;
+
+    float precioTotal=0;
+
+
 
     public Venta(int codigoVenta, String fechaCompra, ArrayList<Producto> productos, Cliente cliente) {
         this.codigoVenta = codigoVenta;
@@ -15,11 +21,33 @@ public class Venta {
         this.cliente = cliente;
     }
 
+    public List<String> getNombresProductos() {
+        return productos.stream()
+                .map(Producto::getNombre)
+                .collect(Collectors.toList());
+    }
 
 
 
     public Venta() {
     }
+
+    public float getPrecioTotal()
+    {
+        for(Producto producto:productos){
+            precioTotal+=producto.getPrecio();
+        }
+        return precioTotal;
+    }
+
+    public void setPrecioTotal(float precioTotal) {
+        this.precioTotal = precioTotal;
+    }
+
+    public String getNombreCliente(){
+        return cliente.nombre;
+    }
+
 
     public int getCodigoVenta() {
         return codigoVenta;

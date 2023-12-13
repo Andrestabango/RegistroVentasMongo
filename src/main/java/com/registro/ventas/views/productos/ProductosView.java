@@ -2,6 +2,7 @@ package com.registro.ventas.views.productos;
 
 import com.registro.ventas.models.Cliente;
 import com.registro.ventas.models.Producto;
+import com.registro.ventas.models.Venta;
 import com.registro.ventas.utils.Util;
 import com.registro.ventas.views.MainLayout;
 import com.vaadin.flow.component.Composite;
@@ -32,6 +33,10 @@ public class ProductosView extends Composite<VerticalLayout> {
         buttonPrimary.setText("Nuevo Producto");
         buttonPrimary.setWidth("min-content");
         buttonPrimary.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        buttonPrimary.addClickListener(e -> {
+            buttonPrimary.getUI().ifPresent(ui ->
+                    ui.navigate("nuevo-producto"));
+        });
 
         Grid<Producto> grid = new Grid<>(Producto.class, false);
         grid.addColumn(Producto::getNombre).setHeader("Nombre").setAutoWidth(true);
@@ -47,7 +52,26 @@ public class ProductosView extends Composite<VerticalLayout> {
                     });
                     botonBorrar.setIcon(new Icon(VaadinIcon.TRASH));
 
-                    HorizontalLayout buttons = new HorizontalLayout(botonBorrar);
+                    Button botonAgregar = new Button();
+                    botonAgregar.addThemeVariants(ButtonVariant.LUMO_ERROR);
+                    botonAgregar.addClickListener(e -> {
+                        producto.aumentarCantidad(); // Método para aumentar la cantidad en tu modelo Producto
+                        grid.getDataProvider().refreshItem(producto);
+                    });
+                    botonAgregar.setIcon(new Icon(VaadinIcon.PLUS));
+
+                    Button botonEliminar = new Button();
+                    botonEliminar.addThemeVariants(ButtonVariant.LUMO_SUCCESS);
+                    botonEliminar.addClickListener(e -> {
+                        producto.disminuirCantidad(); // Método para disminuir la cantidad en tu modelo Producto
+                        if (producto.getCantidad() <= 0) {
+                            producto.getProductos().remove(producto);
+                        }
+                        grid.getDataProvider().refreshItem(producto);
+                    });
+                    botonEliminar.setIcon(new Icon(VaadinIcon.MINUS));
+
+                    HorizontalLayout buttons = new HorizontalLayout(botonBorrar, botonAgregar, botonEliminar);
                     return buttons;
                 })).setHeader("Manage").setAutoWidth(true);
 

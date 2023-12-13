@@ -45,6 +45,9 @@ public class NuevaVentaView extends Composite<VerticalLayout> {
         ComboBox cBClientes = new ComboBox();
         VerticalLayout layoutColumn3 = new VerticalLayout();
         H6 h6 = new H6();
+        Venta venta2 = new Venta();
+        H3 h32 = new H3();
+        H3 h33 = new H3();
         HorizontalLayout layoutRow = new HorizontalLayout();
         Button guardar = new Button();
         Button buttonSecondary = new Button();
@@ -67,8 +70,13 @@ public class NuevaVentaView extends Composite<VerticalLayout> {
         layoutColumn2.setFlexGrow(1.0, layoutColumn3);
         layoutColumn3.setWidth("100%");
         layoutColumn3.getStyle().set("flex-grow", "1");
+        layoutColumn3.setHeight("min-content");
         h6.setText("Agregue los productos a vender");
         h6.setWidth("max-content");
+        h32.setText("Precio Total:");
+        h32.setWidth("max-content");
+        h33.setText("Precio");
+        h33.setWidth("max-content");
         layoutRow.addClassName(Gap.MEDIUM);
         layoutRow.setWidth("100%");
         layoutRow.getStyle().set("flex-grow", "1");
@@ -76,7 +84,7 @@ public class NuevaVentaView extends Composite<VerticalLayout> {
         guardar.setWidth("min-content");
         guardar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-        Venta venta2 = new Venta();
+
         guardar.addClickListener(e -> {
             int selTipo = Integer.parseInt(((SampleItem)cBClientes.getValue()).value());
             String tipo = ((SampleItem)cBClientes.getValue()).label();
@@ -97,6 +105,8 @@ public class NuevaVentaView extends Composite<VerticalLayout> {
         buttonSecondary.setWidth("min-content");
         getContent().add(layoutColumn2);
         layoutColumn2.add(h3);
+        layoutColumn2.add(h32);
+        layoutColumn2.add(h33);
         layoutColumn2.add(formLayout2Col);
         formLayout2Col.add(tfcodigo);
         formLayout2Col.add(dpFechaVentas);
@@ -106,7 +116,35 @@ public class NuevaVentaView extends Composite<VerticalLayout> {
         layoutRow.add(guardar);
         layoutRow.add(buttonSecondary);
 
+
+        Grid<Producto> grid2 = new Grid<>(Producto.class, false);
+        grid2.setItems(venta2.getProductos());
+        grid2.addColumn(Producto::getNombre).setHeader("Nombre").setAutoWidth(true);
+        grid2.addColumn(Producto::getPrecio).setHeader("Precio").setAutoWidth(true);
+        grid2.addColumn(
+                new ComponentRenderer<>(producto -> {
+                    Button botonEliminar = new Button();
+                    botonEliminar.addThemeVariants(ButtonVariant.LUMO_SUCCESS);
+                    botonEliminar.addClickListener(e -> {
+                        producto.disminuirCantidad();
+                        venta2.getProductos().remove(producto);
+                        grid2.getDataProvider().refreshAll();
+                        h33.setText(String.valueOf(venta2.getPrecioTotal()));
+                    });
+                    botonEliminar.setIcon(new Icon(VaadinIcon.MINUS));
+
+                    HorizontalLayout buttons = new HorizontalLayout(botonEliminar);
+                    return buttons;
+                })).setHeader("Manage").setAutoWidth(true);
+
+        grid2.addThemeVariants(GridVariant.LUMO_NO_BORDER);
+
+
+        layoutColumn3.add(h6, grid2, h33);
+
+
         Grid<Producto> grid = new Grid<>(Producto.class, false);
+        grid.setItems(/* tu lista de productos */);
         grid.addColumn(Producto::getNombre).setHeader("Nombre").setAutoWidth(true);
         grid.addColumn(Producto::getPrecio).setHeader("Precio").setAutoWidth(true);
         grid.addColumn(Producto::getCantidad).setHeader("Cantidad").setAutoWidth(true);
@@ -115,26 +153,31 @@ public class NuevaVentaView extends Composite<VerticalLayout> {
                     Button botonAgregar = new Button();
                     botonAgregar.addThemeVariants(ButtonVariant.LUMO_ERROR);
                     botonAgregar.addClickListener(e -> {
-                        venta1.getProductos().add(producto);
+                        producto.aumentarCantidad();
+                        venta2.getProductos().add(producto);
+                        grid2.getDataProvider().refreshAll();
+                        h33.setText(String.valueOf(venta2.getPrecioTotal()));
                     });
                     botonAgregar.setIcon(new Icon(VaadinIcon.PLUS));
 
                     Button botonEliminar = new Button();
                     botonEliminar.addThemeVariants(ButtonVariant.LUMO_SUCCESS);
                     botonEliminar.addClickListener(e -> {
-                        venta1.getProductos().remove(producto);
+                        producto.disminuirCantidad();
+                        venta2.getProductos().remove(producto);
+                        grid2.getDataProvider().refreshAll();
+                        h33.setText(String.valueOf(venta2.getPrecioTotal()));
                     });
                     botonEliminar.setIcon(new Icon(VaadinIcon.MINUS));
 
-
-                    HorizontalLayout buttons = new HorizontalLayout(botonAgregar,botonEliminar);
+                    HorizontalLayout buttons = new HorizontalLayout(botonAgregar, botonEliminar);
                     return buttons;
                 })).setHeader("Manage").setAutoWidth(true);
 
         List<Producto> productos = Util.listaProducto;
         grid.setItems(productos);
         grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
-        layoutColumn3.add(h6,grid);
+        layoutColumn3.add(h6,grid2,h33,grid);
 
 
 

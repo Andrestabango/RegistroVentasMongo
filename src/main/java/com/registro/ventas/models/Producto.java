@@ -1,11 +1,9 @@
 package com.registro.ventas.models;
 
-import java.util.Scanner;
-
 public class Producto extends Venta {
-    String nombre;
-    float precio;
-    int cantidad;
+    private String nombre;
+    private float precio;
+    private int cantidad;
 
     public Producto(String nombre, float precio, int cantidad) {
         this.nombre = nombre;
@@ -14,10 +12,22 @@ public class Producto extends Venta {
     }
 
     public Producto() {
+        // Constructor por defecto
+    }
 
+    public void aumentarCantidad() {
+        cantidad++;
     }
 
 
+
+    public void disminuirCantidad() {
+        if (cantidad > 0) {
+            cantidad--;
+        }
+    }
+
+    /*
     public void ingresarProducto(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ingrese nombre del producto:");
@@ -28,12 +38,14 @@ public class Producto extends Venta {
         this.cantidad = scanner.nextInt();
     }
 
-
     public void imprimirProducto(){
         System.out.println("Nombre: "+this.nombre);
         System.out.println("Precio: "+this.precio);
         System.out.println("Código: "+this.cantidad);
     }
+    */
+
+    // Métodos getter y setter
 
     public String getNombre() {
         return nombre;

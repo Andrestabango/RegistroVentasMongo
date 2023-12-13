@@ -8,6 +8,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -71,21 +72,27 @@ public class NuevoProductoView extends Composite<VerticalLayout> {
         guardar.addClickListener(event -> {
             // Obtener los valores de los campos y guardar en la lista de productos
             String nombre = textField.getValue();
-            float precio = Float.parseFloat(textField2.getValue());
-            Integer cantidad = Integer.valueOf(textField3.getValue());
+            String precioStr = textField2.getValue();
+            String cantidadStr = textField3.getValue();
 
             // Crear una nueva instancia de Producto
             Producto producto1 = new Producto();
+            if (!nombre.isEmpty() && precioStr != null && cantidadStr != null) {
+                // Validar que los campos no estén vacíos antes de guardar
+                float precio = Float.parseFloat(precioStr);
+                Integer cantidad = Integer.valueOf(cantidadStr);
 
-            // Validar que los campos no estén vacíos antes de guardar
-            producto1.setNombre(nombre);
-            producto1.setPrecio(precio);
-            producto1.setCantidad(cantidad);
+                producto1.setNombre(nombre);
+                producto1.setPrecio(precio);
+                producto1.setCantidad(cantidad);
 
-            Util.listaProducto.add(producto1);
+                Util.listaProducto.add(producto1);
 
-            // Navegar a la vista de productos después de guardar
-            getUI().ifPresent(ui -> ui.navigate("productos"));
+                // Navegar a la vista de productos después de guardar
+                getUI().ifPresent(ui -> ui.navigate("productos"));
+            } else {
+                Notification.show("Por favor, llene todos los campos", 3000, Notification.Position.MIDDLE);
+            }
         });
         buttonSecondary.setText("Cancelar");
         buttonSecondary.setWidth("min-content");
