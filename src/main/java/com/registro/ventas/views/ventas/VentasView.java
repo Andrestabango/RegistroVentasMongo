@@ -41,7 +41,7 @@ public class VentasView extends Composite<VerticalLayout> {
         Grid<Venta> grid = new Grid<>(Venta.class, false);
         grid.addColumn(Venta::getCodigoVenta).setHeader("Código de Venta").setAutoWidth(true);
         grid.addColumn(Venta::getNombreCliente).setHeader("Cliente").setAutoWidth(true);
-        grid.addColumn(Venta::getProductos).setHeader("Productos").setAutoWidth(true);
+        grid.addColumn(venta -> String.join(", ", venta.getNombresProductos())).setHeader("Productos").setAutoWidth(true);
         grid.addColumn(Venta::getPrecioTotal).setHeader("Precio").setAutoWidth(true);
         grid.addColumn(Venta::getFechaCompra).setHeader("Fecha de Venta").setAutoWidth(true);
 

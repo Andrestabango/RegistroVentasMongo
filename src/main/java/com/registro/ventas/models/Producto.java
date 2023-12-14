@@ -27,25 +27,6 @@ public class Producto extends Venta {
         }
     }
 
-    /*
-    public void ingresarProducto(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Ingrese nombre del producto:");
-        this.nombre = scanner.nextLine();
-        System.out.println("Ingrese precio del producto:");
-        this.precio = scanner.nextFloat();
-        System.out.println("Ingrese cantidad del producto:");
-        this.cantidad = scanner.nextInt();
-    }
-
-    public void imprimirProducto(){
-        System.out.println("Nombre: "+this.nombre);
-        System.out.println("Precio: "+this.precio);
-        System.out.println("Código: "+this.cantidad);
-    }
-    */
-
-    // Métodos getter y setter
 
     public String getNombre() {
         return nombre;

@@ -16,6 +16,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.H6;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
@@ -46,7 +47,7 @@ public class NuevaVentaView extends Composite<VerticalLayout> {
         VerticalLayout layoutColumn3 = new VerticalLayout();
         H6 h6 = new H6();
         Venta venta2 = new Venta();
-        H3 h32 = new H3();
+        H3 h32 = new H3("Precio Total:");
         H3 h33 = new H3();
         HorizontalLayout layoutRow = new HorizontalLayout();
         Button guardar = new Button();
@@ -86,14 +87,15 @@ public class NuevaVentaView extends Composite<VerticalLayout> {
 
 
         guardar.addClickListener(e -> {
-            int selTipo = Integer.parseInt(((SampleItem)cBClientes.getValue()).value());
-            String tipo = ((SampleItem)cBClientes.getValue()).label();
+            int selTipo = Integer.parseInt(((SampleItem) cBClientes.getValue()).value());
+            String tipo = ((SampleItem) cBClientes.getValue()).label();
             System.out.println(selTipo);
-          venta2.setCodigoVenta(Integer.parseInt(tfcodigo.getValue()));
-          venta2.setFechaCompra(dpFechaVentas.getValue().toString());
-          venta2.setCliente(Util.listaClientes.get(selTipo));
-              Util.listaVenta.add(venta2);
+            venta2.setCodigoVenta(Integer.parseInt(tfcodigo.getValue()));
+            venta2.setFechaCompra(dpFechaVentas.getValue().toString());
+            venta2.setCliente(Util.listaClientes.get(selTipo));
+            Util.listaVenta.add(venta2);
 
+          //  precioTotalSpan.setText("Precio Total: " + venta2.getPrecioTotal()); // Actualizar el valor después de guardar
 
             guardar.getUI().ifPresent(ui ->
                     ui.navigate("ventas"));
@@ -129,7 +131,7 @@ public class NuevaVentaView extends Composite<VerticalLayout> {
                         producto.disminuirCantidad();
                         venta2.getProductos().remove(producto);
                         grid2.getDataProvider().refreshAll();
-                        h33.setText(String.valueOf(venta2.getPrecioTotal()));
+                        h32.setText(String.valueOf(venta2.getPrecioTotal()));
                     });
                     botonEliminar.setIcon(new Icon(VaadinIcon.MINUS));
 
@@ -140,33 +142,34 @@ public class NuevaVentaView extends Composite<VerticalLayout> {
         grid2.addThemeVariants(GridVariant.LUMO_NO_BORDER);
 
 
-        layoutColumn3.add(h6, grid2, h33);
+
+        layoutColumn3.add(h6, grid2, h32);
 
 
         Grid<Producto> grid = new Grid<>(Producto.class, false);
         grid.setItems(/* tu lista de productos */);
         grid.addColumn(Producto::getNombre).setHeader("Nombre").setAutoWidth(true);
         grid.addColumn(Producto::getPrecio).setHeader("Precio").setAutoWidth(true);
-        grid.addColumn(Producto::getCantidad).setHeader("Cantidad").setAutoWidth(true);
+        grid.addColumn(Producto::getCantidad).setHeader("Stock").setAutoWidth(true);
         grid.addColumn(
                 new ComponentRenderer<>(producto -> {
                     Button botonAgregar = new Button();
                     botonAgregar.addThemeVariants(ButtonVariant.LUMO_ERROR);
                     botonAgregar.addClickListener(e -> {
-                        producto.aumentarCantidad();
+                        producto.disminuirCantidad();
                         venta2.getProductos().add(producto);
                         grid2.getDataProvider().refreshAll();
-                        h33.setText(String.valueOf(venta2.getPrecioTotal()));
+                        h32.setText(String.valueOf(venta2.getPrecioTotal()));
                     });
                     botonAgregar.setIcon(new Icon(VaadinIcon.PLUS));
 
                     Button botonEliminar = new Button();
                     botonEliminar.addThemeVariants(ButtonVariant.LUMO_SUCCESS);
                     botonEliminar.addClickListener(e -> {
-                        producto.disminuirCantidad();
+                        producto.aumentarCantidad();
                         venta2.getProductos().remove(producto);
                         grid2.getDataProvider().refreshAll();
-                        h33.setText(String.valueOf(venta2.getPrecioTotal()));
+                        h32.setText(String.valueOf(venta2.getPrecioTotal()));
                     });
                     botonEliminar.setIcon(new Icon(VaadinIcon.MINUS));
 
@@ -177,7 +180,7 @@ public class NuevaVentaView extends Composite<VerticalLayout> {
         List<Producto> productos = Util.listaProducto;
         grid.setItems(productos);
         grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
-        layoutColumn3.add(h6,grid2,h33,grid);
+        layoutColumn3.add(h6,grid2,h32,grid);
 
 
 

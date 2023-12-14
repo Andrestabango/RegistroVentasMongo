@@ -17,8 +17,12 @@ public class Util {
 
     public static List<Producto> listaProducto = new ArrayList<>(
             List.of(
-
-
+                new Producto("Embrague",120,50),
+                new Producto("Piston",45,50),
+                new Producto("LLanta",85,50),
+                new Producto("Filtro",10,50),
+                new Producto("Aceite", 21.99F,50),
+                new Producto("Refrigerante",15,50)
             )
     );
 

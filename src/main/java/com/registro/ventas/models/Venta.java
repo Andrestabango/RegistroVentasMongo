@@ -9,7 +9,6 @@ public class Venta {
     String fechaCompra;
     ArrayList<Producto>  productos = new ArrayList<>();
     Cliente cliente;
-
     float precioTotal=0;
 
 
@@ -21,21 +20,21 @@ public class Venta {
         this.cliente = cliente;
     }
 
+
+
     public List<String> getNombresProductos() {
         return productos.stream()
                 .map(Producto::getNombre)
                 .collect(Collectors.toList());
     }
 
-
-
     public Venta() {
     }
 
-    public float getPrecioTotal()
-    {
-        for(Producto producto:productos){
-            precioTotal+=producto.getPrecio();
+    public float getPrecioTotal() {
+        precioTotal = 0;
+        for (Producto producto : productos) {
+            precioTotal += producto.getPrecio();
         }
         return precioTotal;
     }
@@ -47,6 +46,7 @@ public class Venta {
     public String getNombreCliente(){
         return cliente.nombre;
     }
+
 
 
     public int getCodigoVenta() {
