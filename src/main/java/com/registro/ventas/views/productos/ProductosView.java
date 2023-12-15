@@ -41,7 +41,7 @@ public class ProductosView extends Composite<VerticalLayout> {
         Grid<Producto> grid = new Grid<>(Producto.class, false);
         grid.addColumn(Producto::getNombre).setHeader("Nombre").setAutoWidth(true);
         grid.addColumn(Producto::getPrecio).setHeader("Precio").setAutoWidth(true);
-        grid.addColumn(Producto::getCantidad).setHeader("Nombre").setAutoWidth(true);
+        grid.addColumn(Producto::getCantidad).setHeader("Cantidad").setAutoWidth(true);
         grid.addColumn(
                 new ComponentRenderer<>(producto -> {
                     Button botonBorrar = new Button();
