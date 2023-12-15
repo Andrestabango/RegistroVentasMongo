@@ -48,7 +48,7 @@ public class NuevaVentaView extends Composite<VerticalLayout> {
         H6 h6 = new H6();
         Venta venta2 = new Venta();
         H3 h32 = new H3("Precio Total:");
-        H3 h33 = new H3();
+        H3 h33 = new H3("Precio");
         HorizontalLayout layoutRow = new HorizontalLayout();
         Button guardar = new Button();
         Button buttonSecondary = new Button();
@@ -131,7 +131,8 @@ public class NuevaVentaView extends Composite<VerticalLayout> {
                         producto.disminuirCantidad();
                         venta2.getProductos().remove(producto);
                         grid2.getDataProvider().refreshAll();
-                        h32.setText(String.valueOf(venta2.getPrecioTotal()));
+                        h32.setText("Precio Total:");
+                        h33.setText(String.valueOf(venta2.getPrecioTotal()));
                     });
                     botonEliminar.setIcon(new Icon(VaadinIcon.MINUS));
 
@@ -143,7 +144,7 @@ public class NuevaVentaView extends Composite<VerticalLayout> {
 
 
 
-        layoutColumn3.add(h6, grid2, h32);
+        layoutColumn3.add(h6, grid2,h32, h33);
 
 
         Grid<Producto> grid = new Grid<>(Producto.class, false);
@@ -159,7 +160,8 @@ public class NuevaVentaView extends Composite<VerticalLayout> {
                         producto.disminuirCantidad();
                         venta2.getProductos().add(producto);
                         grid2.getDataProvider().refreshAll();
-                        h32.setText(String.valueOf(venta2.getPrecioTotal()));
+                        h32.setText("Precio Total:");
+                        h33.setText(String.valueOf(venta2.getPrecioTotal()));
                     });
                     botonAgregar.setIcon(new Icon(VaadinIcon.PLUS));
 
@@ -169,7 +171,8 @@ public class NuevaVentaView extends Composite<VerticalLayout> {
                         producto.aumentarCantidad();
                         venta2.getProductos().remove(producto);
                         grid2.getDataProvider().refreshAll();
-                        h32.setText(String.valueOf(venta2.getPrecioTotal()));
+                        h32.setText("Precio Total:");
+                        h33.setText(String.valueOf(venta2.getPrecioTotal()));
                     });
                     botonEliminar.setIcon(new Icon(VaadinIcon.MINUS));
 
@@ -180,7 +183,7 @@ public class NuevaVentaView extends Composite<VerticalLayout> {
         List<Producto> productos = Util.listaProducto;
         grid.setItems(productos);
         grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
-        layoutColumn3.add(h6,grid2,h32,grid);
+        layoutColumn3.add(h6,grid2,h32,h33,grid);
 
 
 
