@@ -101,7 +101,7 @@ public class NuevaVentaView extends Composite<VerticalLayout> implements HasUrlP
             System.out.println(selTipo);
             venta2.setCodigoVenta(Integer.parseInt(tfcodigo.getValue()));
             venta2.setFechaCompra(dpFechaVentas.getValue().toString());
-            venta2.setCliente(Util.listaClientes.get(selTipo));
+            venta2.setCliente(clienteService.listaClientes().get(selTipo));
             ventaService.agregarVenta(venta1);
 
           //  precioTotalSpan.setText("Precio Total: " + venta2.getPrecioTotal()); // Actualizar el valor después de guardar

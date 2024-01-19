@@ -1,6 +1,7 @@
 package com.registro.ventas.views.nuevoproducto;
 
 import com.registro.ventas.models.Producto;
+import com.registro.ventas.service.ProductoService;
 import com.registro.ventas.utils.Util;
 import com.registro.ventas.views.MainLayout;
 import com.vaadin.flow.component.Composite;
@@ -20,8 +21,10 @@ import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 @PageTitle("Nuevo Producto")
 @Route(value = "nuevo-producto", layout = MainLayout.class)
 public class NuevoProductoView extends Composite<VerticalLayout> implements HasUrlParameter<String> {
+    private ProductoService productoService;
 
-    public NuevoProductoView() {
+    public NuevoProductoView(ProductoService productoService) {
+        this.productoService=productoService;
         VerticalLayout layoutColumn2 = new VerticalLayout();
         H3 h3 = new H3();
         TextField textField = new TextField();
@@ -85,7 +88,7 @@ public class NuevoProductoView extends Composite<VerticalLayout> implements HasU
                 producto1.setPrecio(precio);
                 producto1.setCantidad(cantidad);
 
-                Util.listaProducto.add(producto1);
+                productoService.agregarProducto(producto1);
 
                 // Navegar a la vista de productos después de guardar
                 getUI().ifPresent(ui -> ui.navigate("productos"));
