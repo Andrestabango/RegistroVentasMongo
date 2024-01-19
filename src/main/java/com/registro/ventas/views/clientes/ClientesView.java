@@ -28,7 +28,7 @@ public class ClientesView extends Composite<VerticalLayout> {
 
     private ClienteService clienteService;
     public ClientesView(ClienteService clienteService) {
-
+        this.clienteService=clienteService;
         Button buttonPrimary = new Button();
         getContent().setWidth("100%");
         getContent().getStyle().set("flex-grow", "1");
@@ -40,7 +40,7 @@ public class ClientesView extends Composite<VerticalLayout> {
                     ui.navigate("nuevo-cliente"));
         });
 
-        this.clienteService=clienteService;
+
 
 
         Grid<Cliente> grid = new Grid<>(Cliente.class, false);

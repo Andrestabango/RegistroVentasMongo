@@ -40,12 +40,11 @@ public class NuevaVentaView extends Composite<VerticalLayout> implements HasUrlP
 
 
     private VentaService ventaService;
-    private ProductoService productoService;
+
     private ClienteService clienteService;
     public NuevaVentaView(VentaService ventaService, ClienteService clienteService,ProductoService productoService) {
         this.clienteService=clienteService;
         this.ventaService=ventaService;
-        this.productoService=productoService;
         Venta venta1= new Venta();
         VerticalLayout layoutColumn2 = new VerticalLayout();
         H3 h3 = new H3();
@@ -102,7 +101,7 @@ public class NuevaVentaView extends Composite<VerticalLayout> implements HasUrlP
             venta2.setCodigoVenta(Integer.parseInt(tfcodigo.getValue()));
             venta2.setFechaCompra(dpFechaVentas.getValue().toString());
             venta2.setCliente(clienteService.listaClientes().get(selTipo));
-            ventaService.agregarVenta(venta1);
+            ventaService.agregarVenta(venta2);
 
           //  precioTotalSpan.setText("Precio Total: " + venta2.getPrecioTotal()); // Actualizar el valor después de guardar
 

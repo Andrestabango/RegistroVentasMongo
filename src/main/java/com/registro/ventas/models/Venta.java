@@ -8,7 +8,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+
 @Document
+
+
 public class Venta {
     @Id
     String id;
@@ -58,8 +62,12 @@ public class Venta {
         this.precioTotal = precioTotal;
     }
 
-    public String getNombreCliente(){
-        return cliente.nombre;
+    public String getNombreCliente() {
+        if (cliente != null) {
+            return cliente.getNombre();
+        } else {
+            return "Cliente no disponible";
+        }
     }
 
 
