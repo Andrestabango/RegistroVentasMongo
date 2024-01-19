@@ -1,6 +1,8 @@
 package com.registro.ventas.views.nuevocliente;
 
+import ch.qos.logback.core.net.server.Client;
 import com.registro.ventas.models.Cliente;
+import com.registro.ventas.service.ClienteService;
 import com.registro.ventas.utils.Util;
 import com.registro.ventas.views.MainLayout;
 import com.vaadin.flow.component.Composite;
@@ -16,17 +18,33 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.router.*;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
-
+import org.springframework.beans.factory.annotation.Autowired;
 @PageTitle("Nuevo Cliente")
 @Route(value = "nuevo-cliente", layout = MainLayout.class)
 @Uses(Icon.class)
-public class NuevoClienteView extends Composite<VerticalLayout> {
+public class NuevoClienteView extends Composite<VerticalLayout> implements HasUrlParameter<String>{
 
-    public NuevoClienteView() {
+    //nombre
+    TextField textField;
+    //cedula
+    TextField  textField2;
+    //correo
+    TextField emailField;
+
+    Button guardar;
+    Button botonSecundario;
+
+    String cedula;
+
+
+
+    private ClienteService clienteService;
+    public NuevoClienteView(ClienteService clienteService)  {
+
+       this.clienteService=clienteService;
+
         VerticalLayout layoutColumn2 = new VerticalLayout();
         H3 h3 = new H3();
         FormLayout formLayout2Col = new FormLayout();
@@ -53,7 +71,9 @@ public class NuevoClienteView extends Composite<VerticalLayout> {
 
         textField.setLabel("Nombre:");
         textField2.setLabel("Cédula:");
+
         textField2.setWidth("372px");
+
         emailField.setLabel("Correo electrónico:");
         emailField.setWidth("372px");
 
@@ -79,7 +99,7 @@ public class NuevoClienteView extends Composite<VerticalLayout> {
                 cliente1.setCedula(cedula);
                 cliente1.setCorreo(correo);
 
-                Util.listaClientes.add(cliente1);
+                clienteService.agregarCliente(cliente1);
 
                 // Navegar a la vista de clientes después de guardar
                 getUI().ifPresent(ui -> ui.navigate("clientes"));
@@ -100,5 +120,27 @@ public class NuevoClienteView extends Composite<VerticalLayout> {
         layoutColumn2.add(layoutRow);
         layoutRow.add(guardar);
         layoutRow.add(botonSecundario);
+
+
     }
+
+    @Override
+    public void setParameter(BeforeEvent beforeEvent,@OptionalParameter String s) {
+
+    }
+    /*@Override
+    public void setParameter(BeforeEvent beforeEvent, @OptionalParameter String cedula) {
+        this.cedula=cedula;
+        if(cedula!=null){
+            textField2.setEnabled(false);
+            Cliente clienteBuscado = clienteService.obtenerPorCedula(cedula);
+            textField.setValue(clienteBuscado.getNombre());
+            textField2.setValue(clienteBuscado.getCedula());
+            emailField.setValue(clienteBuscado.getCorreo());
+
+        }else{
+            textField2.setEnabled(true);
+        }
+    }*/
+
 }

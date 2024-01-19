@@ -1,6 +1,14 @@
 package com.registro.ventas.models;
 
-public class Producto extends Venta {
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
+public class Producto {
+    @Id
+    private String id;
+    @Indexed(name ="nombre",unique = true)
     private String nombre;
     private float precio;
     private int cantidad;
@@ -27,6 +35,13 @@ public class Producto extends Venta {
         }
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getNombre() {
         return nombre;
@@ -51,4 +66,9 @@ public class Producto extends Venta {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+
+    public ThreadLocal<Object> getProductos() {
+        return null;
+    }
 }
+

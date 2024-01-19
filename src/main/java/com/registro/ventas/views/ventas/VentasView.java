@@ -2,6 +2,7 @@ package com.registro.ventas.views.ventas;
 
 import com.registro.ventas.models.Cliente;
 import com.registro.ventas.models.Venta;
+import com.registro.ventas.service.VentaService;
 import com.registro.ventas.utils.Util;
 import com.registro.ventas.views.MainLayout;
 import com.vaadin.flow.component.Composite;
@@ -27,7 +28,11 @@ import java.util.List;
 @Uses(Icon.class)
 public class VentasView extends Composite<VerticalLayout> {
 
-    public VentasView() {
+    private VentaService ventaService;
+
+    public VentasView(VentaService ventaService) {
+
+        this.ventaService=ventaService;
         Button buttonPrimary = new Button();
         getContent().setWidth("100%");
         getContent().getStyle().set("flex-grow", "1");
@@ -50,7 +55,7 @@ public class VentasView extends Composite<VerticalLayout> {
                     Button botonBorrar = new Button();
                     botonBorrar.addThemeVariants(ButtonVariant.LUMO_ERROR);
                     botonBorrar.addClickListener(e -> {
-                        Util.listaVenta.remove(venta);
+                        ventaService.borrarVenta(venta.getCodigoVenta());
                         grid.getDataProvider().refreshAll();
                     });
                     botonBorrar.setIcon(new Icon(VaadinIcon.TRASH));
@@ -59,7 +64,7 @@ public class VentasView extends Composite<VerticalLayout> {
                     return buttons;
                 })).setHeader("Manage").setAutoWidth(true);
 
-        List<Venta> ventas = Util.listaVenta;
+        List<Venta> ventas = ventaService.listaVenta();
         grid.setItems(ventas);
         grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
         getContent().add(buttonPrimary,grid);

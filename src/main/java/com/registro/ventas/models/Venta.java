@@ -1,12 +1,21 @@
 package com.registro.ventas.models;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Document
 public class Venta {
+    @Id
+    String id;
+    @Indexed(name ="codigoVenta",unique = true)
     int codigoVenta;
     String fechaCompra;
+    @DBRef
     ArrayList<Producto>  productos = new ArrayList<>();
     Cliente cliente;
     float precioTotal=0;
@@ -20,7 +29,13 @@ public class Venta {
         this.cliente = cliente;
     }
 
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public List<String> getNombresProductos() {
         return productos.stream()
@@ -49,8 +64,8 @@ public class Venta {
 
 
 
-    public int getCodigoVenta() {
-        return codigoVenta;
+    public String getCodigoVenta() {
+        return String.valueOf(codigoVenta);
     }
 
     public void setCodigoVenta(int codigoVenta) {

@@ -14,13 +14,12 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.*;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 
 @PageTitle("Nuevo Producto")
 @Route(value = "nuevo-producto", layout = MainLayout.class)
-public class NuevoProductoView extends Composite<VerticalLayout> {
+public class NuevoProductoView extends Composite<VerticalLayout> implements HasUrlParameter<String> {
 
     public NuevoProductoView() {
         VerticalLayout layoutColumn2 = new VerticalLayout();
@@ -106,5 +105,10 @@ public class NuevoProductoView extends Composite<VerticalLayout> {
         layoutColumn2.add(layoutRow);
         layoutRow.add(guardar);
         layoutRow.add(buttonSecondary);
+    }
+
+    @Override
+    public void setParameter(BeforeEvent beforeEvent,@OptionalParameter String s) {
+
     }
 }

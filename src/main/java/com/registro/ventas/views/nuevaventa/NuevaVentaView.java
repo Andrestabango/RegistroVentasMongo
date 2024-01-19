@@ -3,6 +3,9 @@ package com.registro.ventas.views.nuevaventa;
 import com.registro.ventas.models.Cliente;
 import com.registro.ventas.models.Producto;
 import com.registro.ventas.models.Venta;
+import com.registro.ventas.service.ClienteService;
+import com.registro.ventas.service.ProductoService;
+import com.registro.ventas.service.VentaService;
 import com.registro.ventas.utils.Util;
 import com.registro.ventas.views.MainLayout;
 import com.vaadin.flow.component.Composite;
@@ -25,8 +28,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.*;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +36,16 @@ import java.util.List;
 @PageTitle("Nueva Venta")
 @Route(value = "nueva-venta", layout = MainLayout.class)
 @Uses(Icon.class)
-public class NuevaVentaView extends Composite<VerticalLayout> {
+public class NuevaVentaView extends Composite<VerticalLayout> implements HasUrlParameter<String> {
 
-    public NuevaVentaView() {
+
+    private VentaService ventaService;
+    private ProductoService productoService;
+    private ClienteService clienteService;
+    public NuevaVentaView(VentaService ventaService, ClienteService clienteService,ProductoService productoService) {
+        this.clienteService=clienteService;
+        this.ventaService=ventaService;
+        this.productoService=productoService;
         Venta venta1= new Venta();
         VerticalLayout layoutColumn2 = new VerticalLayout();
         H3 h3 = new H3();
@@ -93,7 +102,7 @@ public class NuevaVentaView extends Composite<VerticalLayout> {
             venta2.setCodigoVenta(Integer.parseInt(tfcodigo.getValue()));
             venta2.setFechaCompra(dpFechaVentas.getValue().toString());
             venta2.setCliente(Util.listaClientes.get(selTipo));
-            Util.listaVenta.add(venta2);
+            ventaService.agregarVenta(venta1);
 
           //  precioTotalSpan.setText("Precio Total: " + venta2.getPrecioTotal()); // Actualizar el valor después de guardar
 
@@ -180,7 +189,7 @@ public class NuevaVentaView extends Composite<VerticalLayout> {
                     return buttons;
                 })).setHeader("Manage").setAutoWidth(true);
 
-        List<Producto> productos = Util.listaProducto;
+        List<Producto> productos = productoService.listaProductos();
         grid.setItems(productos);
         grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
         layoutColumn3.add(h6,grid2,h32,h33,grid);
@@ -190,17 +199,27 @@ public class NuevaVentaView extends Composite<VerticalLayout> {
 
     }
 
+    @Override
+    public void setParameter(BeforeEvent beforeEvent,@OptionalParameter String s) {
+
+    }
+
     record SampleItem(String value, String label, Boolean disabled) {
     }
+
 
     private void setComboBoxSampleData(ComboBox comboBox) {
         List<SampleItem> sampleItems = new ArrayList<>();
         int i=0;
-        for(Cliente cliente: Util.listaClientes){
+        for(Cliente cliente: clienteService.listaClientes()){
             sampleItems.add(new SampleItem(String.valueOf(i), cliente.getNombre(), null));
             i++;
         }
         comboBox.setItems(sampleItems);
         comboBox.setItemLabelGenerator(item -> ((SampleItem) item).label());
     }
+
+
+
+
 }

@@ -3,6 +3,7 @@ package com.registro.ventas.views.productos;
 import com.registro.ventas.models.Cliente;
 import com.registro.ventas.models.Producto;
 import com.registro.ventas.models.Venta;
+import com.registro.ventas.service.ProductoService;
 import com.registro.ventas.utils.Util;
 import com.registro.ventas.views.MainLayout;
 import com.vaadin.flow.component.Composite;
@@ -26,7 +27,13 @@ import java.util.List;
 @Uses(Icon.class)
 public class ProductosView extends Composite<VerticalLayout> {
 
-    public ProductosView() {
+    private ProductoService productoService;
+
+
+
+    public ProductosView(ProductoService productoService) {
+        this.productoService = productoService;
+
         Button buttonPrimary = new Button();
         getContent().setWidth("100%");
         getContent().getStyle().set("flex-grow", "1");
@@ -47,7 +54,7 @@ public class ProductosView extends Composite<VerticalLayout> {
                     Button botonBorrar = new Button();
                     botonBorrar.addThemeVariants(ButtonVariant.LUMO_ERROR);
                     botonBorrar.addClickListener(e -> {
-                        Util.listaProducto.remove(producto);
+                      productoService.borrarProducto(producto.getNombre());
                         grid.getDataProvider().refreshAll();
                     });
                     botonBorrar.setIcon(new Icon(VaadinIcon.TRASH));
@@ -55,7 +62,7 @@ public class ProductosView extends Composite<VerticalLayout> {
                     Button botonAgregar = new Button();
                     botonAgregar.addThemeVariants(ButtonVariant.LUMO_ERROR);
                     botonAgregar.addClickListener(e -> {
-                        producto.aumentarCantidad(); // Método para aumentar la cantidad en tu modelo Producto
+                        producto.aumentarCantidad();
                         grid.getDataProvider().refreshItem(producto);
                     });
                     botonAgregar.setIcon(new Icon(VaadinIcon.PLUS));
@@ -63,9 +70,9 @@ public class ProductosView extends Composite<VerticalLayout> {
                     Button botonEliminar = new Button();
                     botonEliminar.addThemeVariants(ButtonVariant.LUMO_SUCCESS);
                     botonEliminar.addClickListener(e -> {
-                        producto.disminuirCantidad(); // Método para disminuir la cantidad en tu modelo Producto
+                        producto.disminuirCantidad();
                         if (producto.getCantidad() <= 0) {
-                            producto.getProductos().remove(producto);
+                            producto.getProductos().remove();
                         }
                         grid.getDataProvider().refreshItem(producto);
                     });
@@ -75,7 +82,7 @@ public class ProductosView extends Composite<VerticalLayout> {
                     return buttons;
                 })).setHeader("Manage").setAutoWidth(true);
 
-        List<Producto> producto = Util.listaProducto;
+        List<Producto> producto = productoService.listaProductos();
         grid.setItems(producto);
         grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
         getContent().add(buttonPrimary,grid);

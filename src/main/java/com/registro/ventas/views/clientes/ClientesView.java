@@ -2,6 +2,7 @@ package com.registro.ventas.views.clientes;
 
 import com.registro.ventas.models.Cliente;
 import com.registro.ventas.models.Venta;
+import com.registro.ventas.service.ClienteService;
 import com.registro.ventas.utils.Util;
 import com.registro.ventas.views.MainLayout;
 import com.vaadin.flow.component.Composite;
@@ -25,7 +26,8 @@ import java.util.List;
 @Uses(Icon.class)
 public class ClientesView extends Composite<VerticalLayout> {
 
-    public ClientesView() {
+    private ClienteService clienteService;
+    public ClientesView(ClienteService clienteService) {
 
         Button buttonPrimary = new Button();
         getContent().setWidth("100%");
@@ -38,6 +40,9 @@ public class ClientesView extends Composite<VerticalLayout> {
                     ui.navigate("nuevo-cliente"));
         });
 
+        this.clienteService=clienteService;
+
+
         Grid<Cliente> grid = new Grid<>(Cliente.class, false);
         grid.addColumn(Cliente::getNombre).setHeader("Nombre").setAutoWidth(true);
         grid.addColumn(Cliente::getCedula).setHeader("Cedula").setAutoWidth(true);
@@ -47,7 +52,7 @@ public class ClientesView extends Composite<VerticalLayout> {
                     Button botonBorrar = new Button();
                     botonBorrar.addThemeVariants(ButtonVariant.LUMO_ERROR);
                     botonBorrar.addClickListener(e -> {
-                        Util.listaClientes.remove(cliente);
+                       clienteService.borrarCLiente(cliente.getCedula());
                         grid.getDataProvider().refreshAll();
                     });
                     botonBorrar.setIcon(new Icon(VaadinIcon.TRASH));
@@ -56,7 +61,7 @@ public class ClientesView extends Composite<VerticalLayout> {
                     return buttons;
                 })).setHeader("Manage").setAutoWidth(true);
 
-        List<Cliente> clientes = Util.listaClientes;
+        List<Cliente> clientes = clienteService.listaClientes();
         grid.setItems(clientes);
         grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
         getContent().add(buttonPrimary,grid);

@@ -1,12 +1,18 @@
 package com.registro.ventas.models;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Scanner;
-
-public class Cliente extends Venta {
+@Document
+public class Cliente {
+    @Id
+    String id;
     String nombre;
-    String cedula;
     String correo;
-
+    @Indexed(name ="cedula",unique = true)
+    String cedula;
     public Cliente(String nombre, String cedula, String correo) {
         this.nombre = nombre;
         this.cedula = cedula;
@@ -35,7 +41,13 @@ public class Cliente extends Venta {
         System.out.println("Código: "+this.correo);
     }
 
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getNombre() {
         return nombre;
