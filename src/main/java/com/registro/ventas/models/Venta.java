@@ -72,8 +72,8 @@ public class Venta {
 
 
 
-    public String getCodigoVenta() {
-        return String.valueOf(codigoVenta);
+    public int getCodigoVenta() {
+        return codigoVenta;
     }
 
     public void setCodigoVenta(int codigoVenta) {

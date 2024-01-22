@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VentaRepository extends MongoRepository<Venta, String> {
 
-    public Venta findByCodigoVenta(String codigoVenta);
+    public Venta findByCodigoVenta(int codigoVenta);
     public Venta findByFechaCompra(String fechaCompra);
 }

@@ -203,7 +203,7 @@ public class NuevaVentaView extends Composite<VerticalLayout> implements HasUrlP
 
     }
 
-    record SampleItem(String value, String label, Boolean disabled) {
+    public record SampleItem(String value, String label, Boolean disabled) {
     }
 
 

@@ -51,17 +51,6 @@ public class ClienteService {
         }
     }
 
-    public void editarCliente(String cedula,Cliente cliente){
-        try{
-            Cliente clienteEditar = clienteRepository.findByCedula(cedula);
-            if(clienteEditar!=null){
-                clienteEditar.setNombre(cliente.getNombre());
-                clienteEditar.setCorreo(cliente.getCorreo());
-                clienteRepository.save(clienteEditar);
-            }
-        }catch (Exception ex){
-            System.out.println("No se puede encontrar el cliente a ser editado");
-        }
-    }
+
 
 }

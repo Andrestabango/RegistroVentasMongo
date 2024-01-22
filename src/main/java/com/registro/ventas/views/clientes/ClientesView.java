@@ -25,7 +25,7 @@ import java.util.List;
 @Route(value = "clientes", layout = MainLayout.class)
 @Uses(Icon.class)
 public class ClientesView extends Composite<VerticalLayout> {
-
+    List<Cliente> clientes;
     private ClienteService clienteService;
     public ClientesView(ClienteService clienteService) {
         this.clienteService=clienteService;
@@ -52,8 +52,11 @@ public class ClientesView extends Composite<VerticalLayout> {
                     Button botonBorrar = new Button();
                     botonBorrar.addThemeVariants(ButtonVariant.LUMO_ERROR);
                     botonBorrar.addClickListener(e -> {
+                        System.out.println("El codigo de la venta"+cliente.getCedula());
                        clienteService.borrarCLiente(cliente.getCedula());
-                        grid.getDataProvider().refreshAll();
+                       clientes.clear();
+                       clientes.addAll(clienteService.listaClientes());
+                       grid.getDataProvider().refreshAll();
                     });
                     botonBorrar.setIcon(new Icon(VaadinIcon.TRASH));
 
@@ -61,7 +64,7 @@ public class ClientesView extends Composite<VerticalLayout> {
                     return buttons;
                 })).setHeader("Manage").setAutoWidth(true);
 
-        List<Cliente> clientes = clienteService.listaClientes();
+        clientes = clienteService.listaClientes();
         grid.setItems(clientes);
         grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
         getContent().add(buttonPrimary,grid);

@@ -25,7 +25,11 @@ public class VentaService {
         }
         return listaVentas;
     }
-    public void borrarVenta(String codigoVenta){
+
+
+
+
+    public void borrarVenta(int codigoVenta){
         try{
             Venta venta = ventaRepository.findByCodigoVenta(codigoVenta);
             ventaRepository.delete(venta);

@@ -26,7 +26,7 @@ import java.util.List;
 @Route(value = "productos", layout = MainLayout.class)
 @Uses(Icon.class)
 public class ProductosView extends Composite<VerticalLayout> {
-
+    List<Producto> productos;
     private ProductoService productoService;
 
 
@@ -55,6 +55,8 @@ public class ProductosView extends Composite<VerticalLayout> {
                     botonBorrar.addThemeVariants(ButtonVariant.LUMO_ERROR);
                     botonBorrar.addClickListener(e -> {
                       productoService.borrarProducto(producto.getNombre());
+                      productos.clear();
+                      productos.addAll(productoService.listaProductos());
                         grid.getDataProvider().refreshAll();
                     });
                     botonBorrar.setIcon(new Icon(VaadinIcon.TRASH));
@@ -82,8 +84,8 @@ public class ProductosView extends Composite<VerticalLayout> {
                     return buttons;
                 })).setHeader("Manage").setAutoWidth(true);
 
-        List<Producto> producto = productoService.listaProductos();
-        grid.setItems(producto);
+        productos = productoService.listaProductos();
+        grid.setItems(productos);
         grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
         getContent().add(buttonPrimary,grid);
     }

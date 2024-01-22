@@ -19,6 +19,7 @@ import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
+import jakarta.servlet.ServletOutputStream;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ import java.util.List;
 public class VentasView extends Composite<VerticalLayout> {
 
     private VentaService ventaService;
-
+    List<Venta> ventas;
     public VentasView(VentaService ventaService) {
 
         this.ventaService=ventaService;
@@ -55,16 +56,18 @@ public class VentasView extends Composite<VerticalLayout> {
                     Button botonBorrar = new Button();
                     botonBorrar.addThemeVariants(ButtonVariant.LUMO_ERROR);
                     botonBorrar.addClickListener(e -> {
+                        System.out.println("El codigo de la venta"+venta.getCodigoVenta());
                         ventaService.borrarVenta(venta.getCodigoVenta());
+                        ventas.clear();
+                        ventas.addAll(ventaService.listaVenta());
                         grid.getDataProvider().refreshAll();
                     });
                     botonBorrar.setIcon(new Icon(VaadinIcon.TRASH));
-
                     HorizontalLayout buttons = new HorizontalLayout(botonBorrar);
                     return buttons;
                 })).setHeader("Manage").setAutoWidth(true);
 
-        List<Venta> ventas = ventaService.listaVenta();
+       ventas = ventaService.listaVenta();
         grid.setItems(ventas);
         grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
         getContent().add(buttonPrimary,grid);
