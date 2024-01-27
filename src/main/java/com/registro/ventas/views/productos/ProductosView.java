@@ -29,8 +29,6 @@ public class ProductosView extends Composite<VerticalLayout> {
     List<Producto> productos;
     private ProductoService productoService;
 
-
-
     public ProductosView(ProductoService productoService) {
         this.productoService = productoService;
 

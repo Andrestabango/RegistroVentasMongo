@@ -34,6 +34,7 @@ public class VentasView extends Composite<VerticalLayout> {
     public VentasView(VentaService ventaService) {
 
         this.ventaService=ventaService;
+
         Button buttonPrimary = new Button();
         getContent().setWidth("100%");
         getContent().getStyle().set("flex-grow", "1");
@@ -67,7 +68,7 @@ public class VentasView extends Composite<VerticalLayout> {
                     return buttons;
                 })).setHeader("Manage").setAutoWidth(true);
 
-       ventas = ventaService.listaVenta();
+        ventas = ventaService.listaVenta();
         grid.setItems(ventas);
         grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
         getContent().add(buttonPrimary,grid);

@@ -26,19 +26,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Uses(Icon.class)
 public class NuevoClienteView extends Composite<VerticalLayout> implements HasUrlParameter<String>{
 
-    //nombre
-    TextField textField;
-    //cedula
-    TextField  textField2;
-    //correo
-    TextField emailField;
-
-    Button guardar;
-    Button botonSecundario;
-
-    String cedula;
-
-
 
     private ClienteService clienteService;
     public NuevoClienteView(ClienteService clienteService)  {

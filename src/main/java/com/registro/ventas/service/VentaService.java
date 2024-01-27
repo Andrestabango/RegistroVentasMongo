@@ -11,10 +11,22 @@ import java.util.List;
 @Service
 public class VentaService {
     private VentaRepository ventaRepository;
-
-    public VentaService(VentaRepository ventaRepository) {
+    private ProductoRepository productoRepository;
+    public VentaService(VentaRepository ventaRepository, ProductoRepository productoRepository) {
         this.ventaRepository = ventaRepository;
+        this.productoRepository=productoRepository;
     }
+    public void actualizarCantidad(String nombre){
+        try{
+            Producto producto = productoRepository.findByNombre(nombre);
+            int cantidad2= producto.getCantidad();
+            producto.setCantidad(cantidad2-1);
+            productoRepository.save(producto);
+        }catch (Exception ex){
+            System.out.println("No se puede encontrar la venta a borrar");
+        }
+    }
+
 
     public List<Venta> listaVenta(){
         List<Venta> listaVentas =new ArrayList<>();

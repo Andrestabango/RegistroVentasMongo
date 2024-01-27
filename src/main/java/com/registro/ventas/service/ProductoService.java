@@ -48,6 +48,9 @@ public class ProductoService {
             System.out.println("No se puede encontrar el cliente a borrar");
         }
     }
+
+
+
     public void editarProducto(String nombre,Producto producto){
         try{
             Producto productoEditar = productoRepository.findByNombre(nombre);

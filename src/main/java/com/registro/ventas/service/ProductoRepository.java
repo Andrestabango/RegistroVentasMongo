@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface ProductoRepository extends MongoRepository<Producto, String> {
     public Producto findByNombre(String nombre);
     public Producto findByPrecio(Float precio);
-    public Producto findByCantidad(int precio);
+    public Producto findByCantidad(int cantidad);
 
 }
